@@ -2,7 +2,8 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className="text-center p-10 mt-10 border-t dark:border-gray-700 border-gray-200 " >
+      <h1>2022 My Google Clone made with 💙 by David Vera </h1>
+    </div>
   )
 }
-
