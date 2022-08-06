@@ -5,33 +5,34 @@ import { useResultsContext } from '../context/ResultContextProvider';
 import { Loading } from './Loading';
 
 export const Results = () => {
-
   const { results, isLoading, getResults, searchTerm } = useResultsContext();
   const location = useLocation();
 
   useEffect(() => {
     if (searchTerm) {
       if (location.pathname === '/videos') {
-        getResults(`${location.pathname.slice(0,-1)}/q=${searchTerm}&num=7`)
+        getResults(`${location.pathname.slice(0, -1)}/q=${searchTerm}&num=7`)
       };
-      if (location.pathname === '/images'){
-        getResults(`${location.pathname.slice(0,-1)}/q=${searchTerm}&num=7`)   
-    }
-    else{
-      getResults(`/search/q=${searchTerm}&num=7`)
-    }
+      if (location.pathname === '/images') {
+        getResults(`${location.pathname.slice(0, -1)}/q=${searchTerm}&num=7`)
+      };
+      if (location.pathname === '/news') {
+        getResults(`${location.pathname}/q=${searchTerm}&num=7`)
+      }
+      else if(location.pathname === '/search'){
+        getResults(`${location.pathname}/q=${searchTerm}&num=7`)
+      }
     }
 
   }, [searchTerm, location.pathname]);
 
   if (isLoading) return <Loading />;
-  console.log(location.pathname);
 
   switch (location.pathname) {
     case '/search':
       return (
         <div className="flex flex-wrap justify-between space-y-6 sm:px-56" >
-          {results?.results?.map(({ link, title }, index) => (
+          {results?.map(({ link, title }, index) => (
             <div key={index} className="md:w-2/5 w-full" >
               <a href={link} target='_blank' rel='noreferrer' >
                 <p className="text-sm" >
@@ -47,8 +48,8 @@ export const Results = () => {
       );
     case '/images':
       return (
-        <div className='' >
-          {results?.image_results?.map(({ image, link: { href, title } }, index) => (
+        <div className='flex flex-wrap' >
+          {results?.map(({ image, link: { href, title } }, index) => (
             <a className='sm:p-3 p-5' href={href} key={index} target='_blank' rel='noreferrer' >
               <img src={image?.src} alt={title} loading='lazy' />
               <p className='w-36 break-words text-sm mt-2'>
@@ -59,7 +60,25 @@ export const Results = () => {
         </div>
       );
     case '/news':
-      return 'Search';
+      console.log('news Case');
+      return (
+        <div className="flex flex-wrap justify-between space-y-6 sm:px-56 items-center" >
+          {results?.map(({ links, id, source, title }) => (
+            <div key={id} className="md:w-2/5 w-full" >
+              <a href={links?.[0].href} target='_blank' rel='noreferrer' className="hover:underline" >
+                <p className='text-lg dark:text-blue-300 text-blue-700' >
+                  {title}
+                </p>
+              </a>
+              <div className="flex gap-4" >
+                <a href={source?.href} target='_blank' rel='noreferrer'>
+                  {source?.href}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
     case '/videos':
       return 'Search';
 
