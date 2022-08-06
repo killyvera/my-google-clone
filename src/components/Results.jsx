@@ -13,6 +13,16 @@ export const Results = () => {
 
   switch (location.pathname) {
     case '/search':
+      return(
+        <div className="flex flex-wrap justify-between space-y-6 sm:px-56" >
+
+        </div>
+      );
+    case '/images':
+      return 'Search';
+    case '/news':
+      return 'Search';
+    case '/videos':
       return 'Search';
 
     default:
