@@ -5,7 +5,7 @@ import { useResultsContext } from '../context/ResultContextProvider';
 import{Links} from './Links';
 
 export const Search = () => {
-  const [text, setText] = useState('News Today');
+  const [text, setText] = useState('Javascript Tutorials');
   const {setSearchTerm} = useResultsContext('search');
   const [debouncedValue] = useDebounce(text, 300);
 
