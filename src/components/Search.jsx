@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { useDebounce } from 'use-debounce';
-import {useResultsContext } from '../context/ResultContextProvider';
+
+import { useResultsContext } from '../context/ResultContextProvider';
 import{Links} from './Links';
 
 export const Search = () => {
-  const [text, setText] = useState('pikachu');
+  const [text, setText] = useState('News Today');
   const {setSearchTerm} = useResultsContext('search');
-  const {debouncedValue} = useDebounce(text, 3000);
+  const [debouncedValue] = useDebounce(text, 300);
 
   useEffect(() =>{
     if(debouncedValue) setSearchTerm(debouncedValue);
