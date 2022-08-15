@@ -11,7 +11,7 @@ export const Results = () => {
   useEffect(() => {
     if (searchTerm) {
       if (location.pathname === '/videos') {
-        getResults(`${location.pathname.slice(0, -1)}/q=${searchTerm}&num=20`)
+        getResults(`/search/q=${searchTerm} youtube videos`);
       };
       if (location.pathname === '/images') {
         getResults(`${location.pathname.slice(0, -1)}/q=${searchTerm}&num=20`)
